@@ -8,54 +8,108 @@
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Chart.js for creating the chart -->
+    <!-- Chart.js for the chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Lucide Icons for icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Custom font and base styling */
+        /* Apply the Inter font family */
         body {
             font-family: 'Inter', sans-serif;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     </style>
 </head>
 <body class="bg-slate-50">
 
-    <div class="p-4 sm:p-6 lg:p-8">
-        <div class="max-w-7xl mx-auto">
-            <!-- Header Section -->
-            <header class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">AMS Financials Overview 2025</h1>
-                <p class="text-md text-gray-600 mt-1">Budget vs. Actuals & Forecast Analysis</p>
-            </header>
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Header Section -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">AMS Financials Overview 2025</h1>
+            <p class="text-md text-gray-600 mt-1">Budget vs. Actuals & Forecast Analysis</p>
+        </header>
 
-            <!-- KPI Cards Grid -->
-            <div id="kpi-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Info cards will be injected here by JavaScript -->
-            </div>
-
-            <!-- Chart Container -->
-            <div class="bg-white rounded-xl shadow-md p-4 sm:p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-1">Financial Performance</h2>
-                <p class="text-sm text-gray-500 mb-6">Monthly figures and cumulative forecast against total budget.</p>
-                <div class="relative h-[500px]">
-                    <canvas id="financialChart"></canvas>
+        <!-- KPI Info Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Budget Card -->
+            <div id="total-budget-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4" style="border-color: #3b82f6;">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-sm font-medium text-gray-500">Total Budget</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                    </div>
+                    <p id="kpi-total-budget" class="text-3xl font-bold text-gray-800">€0</p>
                 </div>
+                <p class="text-xs text-gray-500 mt-3">The total allocated budget for AMS.</p>
             </div>
 
-            <!-- Insights & Recommendations Box -->
-            <div id="insights-box" class="mt-8 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
-                 <!-- Insights content will be injected here by JavaScript -->
+            <!-- Projected Spend Card -->
+            <div id="projected-spend-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4" style="border-color: #f59e0b;">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-sm font-medium text-gray-500">Projected Total Spend</p>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </div>
+                    <p id="kpi-projected-spend" class="text-3xl font-bold text-gray-800">€0</p>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">Estimated total cost based on current burn rate.</p>
+            </div>
+
+            <!-- Projected Overspend Card -->
+            <div id="projected-overspend-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4" style="border-color: #ef4444;">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-sm font-medium text-gray-500">Projected Overspend</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <p id="kpi-overspend" class="text-3xl font-bold text-gray-800">€0</p>
+                </div>
+                <p id="kpi-overspend-desc" class="text-xs text-gray-500 mt-3">Projected to be €0 over budget.</p>
+            </div>
+
+            <!-- Budget Crossover Card -->
+            <div id="crossover-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4" style="border-color: #10b981;">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-sm font-medium text-gray-500">Budget Crossover</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></svg>
+                    </div>
+                    <p id="kpi-crossover-month" class="text-3xl font-bold text-gray-800">N/A</p>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">The month when spending is forecasted to exceed the total budget.</p>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="bg-white rounded-xl shadow-md p-4 sm:p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-1">Financial Performance</h2>
+            <p class="text-sm text-gray-500 mb-6">Monthly figures and cumulative forecast against total budget.</p>
+            <div style="height: 500px;">
+                <canvas id="financialChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Insights Section -->
+        <div class="mt-8 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-md font-medium text-amber-800">Key Insights & Recommendations</h3>
+                    <div id="insights-text" class="mt-2 text-sm text-amber-700">
+                        <p>The analysis indicates a projected overspend of <span id="insight-overspend" class="font-bold">€0</span>. The cumulative forecast is set to exceed the total budget in <span id="insight-crossover" class="font-bold">N/A</span>.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- DATA ---
-        // This is the raw data, just like in the React version.
+        // --- Data and Configuration ---
         const rawData = [
             { MONTH: 'MARCH', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 47000, "Cummulative Forecast": 47000, "Total Budget": 417000 },
             { MONTH: 'APRIL', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 47000, "Cummulative Forecast": 94000, "Total Budget": 417000 },
@@ -71,72 +125,37 @@
             { MONTH: 'FEBRUARY', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 22000, "Cummulative Forecast": 433134, "Total Budget": 417000 }
         ];
 
-        // --- UTILITY FUNCTIONS ---
-        // Formats a number into a Dutch Euro currency string.
+        // --- Helper Functions ---
         const formatCurrency = (value) => new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(value);
 
-        // --- DOM MANIPULATION ---
-        // Function to create and inject an Info Card.
-        const createInfoCard = (title, value, iconName, color, description) => {
-            const card = document.createElement('div');
-            card.className = "bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4";
-            card.style.borderColor = color;
-
-            card.innerHTML = `
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-medium text-gray-500">${title}</p>
-                        <i data-lucide="${iconName}" style="color: ${color};"></i>
-                    </div>
-                    <p class="text-3xl font-bold text-gray-800">${value}</p>
-                </div>
-                <p class="text-xs text-gray-500 mt-3">${description}</p>
-            `;
-            return card;
-        };
-
-        // --- MAIN LOGIC ---
-        // This function runs when the page loads.
+        // --- Main Logic ---
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Process Data to Calculate KPIs
+            // 1. Calculate KPIs
             const totalBudget = rawData.length > 0 ? rawData[0]['Total Budget'] : 0;
             const projectedSpend = rawData.length > 0 ? rawData[rawData.length - 1]['Cummulative Forecast'] : 0;
             const overspend = projectedSpend - totalBudget;
             const crossover = rawData.find(d => d['Cummulative Forecast'] > totalBudget);
             const crossoverMonth = crossover ? crossover.MONTH : 'N/A';
             const crossoverIndex = rawData.findIndex(d => d['Cummulative Forecast'] > totalBudget);
-            
-            // 2. Render KPI Cards
-            const kpiContainer = document.getElementById('kpi-cards');
-            kpiContainer.appendChild(createInfoCard('Total Budget', formatCurrency(totalBudget), 'target', '#3b82f6', 'The total allocated budget for the project.'));
-            kpiContainer.appendChild(createInfoCard('Projected Total Spend', formatCurrency(projectedSpend), 'arrow-up-right', '#f59e0b', 'Estimated total cost based on current burn rate.'));
-            kpiContainer.appendChild(createInfoCard('Projected Overspend', formatCurrency(overspend), 'alert-triangle', '#ef4444', `Projected to be ${formatCurrency(Math.abs(overspend))} over budget.`));
-            kpiContainer.appendChild(createInfoCard('Budget Crossover', crossoverMonth, 'trending-down', '#10b981', 'The month when spending is forecasted to exceed the total budget.'));
 
-            // 3. Render Insights Box
-            const insightsContainer = document.getElementById('insights-box');
-            insightsContainer.innerHTML = `
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <i data-lucide="alert-triangle" class="h-5 w-5 text-amber-500"></i>
-                    </div>
-                    <div class="ml-3">
-                        <h3 class="text-md font-medium text-amber-800">Key Insights & Recommendations</h3>
-                        <div class="mt-2 text-sm text-amber-700">
-                            <p>The analysis indicates a projected overspend of <span class="font-bold">${formatCurrency(overspend)}</span>. The cumulative forecast is set to exceed the total budget in <span class="font-bold">${crossoverMonth}</span>.</p>
-                        </div>
-                    </div>
-                </div>
-            `;
+            // 2. Update KPI Cards and Insights
+            document.getElementById('kpi-total-budget').textContent = formatCurrency(totalBudget);
+            document.getElementById('kpi-projected-spend').textContent = formatCurrency(projectedSpend);
+            document.getElementById('kpi-overspend').textContent = formatCurrency(overspend);
+            document.getElementById('kpi-overspend-desc').textContent = `Projected to be ${formatCurrency(Math.abs(overspend))} over budget.`;
+            document.getElementById('kpi-crossover-month').textContent = crossoverMonth;
+            document.getElementById('insight-overspend').textContent = formatCurrency(overspend);
+            document.getElementById('insight-crossover').textContent = crossoverMonth;
 
+            // 3. Prepare Chart Data
+            const labels = rawData.map(d => d.MONTH);
+            const crossoverPointData = new Array(labels.length).fill(null);
+            if (crossoverIndex !== -1) {
+                crossoverPointData[crossoverIndex] = rawData[crossoverIndex]['Cummulative Forecast'];
+            }
 
-            // This command finds all i tags with a 'data-lucide' attribute and replaces them with SVG icons.
-            lucide.createIcons();
-
-            // 4. Prepare Data for Chart.js
-            const chartLabels = rawData.map(d => d.MONTH);
             const chartData = {
-                labels: chartLabels,
+                labels: labels,
                 datasets: [
                     {
                         type: 'bar',
@@ -145,6 +164,7 @@
                         backgroundColor: '#a7f3d0',
                         yAxisID: 'yLeft',
                         borderRadius: 4,
+                        order: 2 // Render bars behind lines
                     },
                     {
                         type: 'bar',
@@ -153,6 +173,7 @@
                         backgroundColor: '#082e59',
                         yAxisID: 'yLeft',
                         borderRadius: 4,
+                        order: 2 // Render bars behind lines
                     },
                     {
                         type: 'line',
@@ -160,49 +181,69 @@
                         data: rawData.map(d => d['Cummulative Forecast']),
                         borderColor: '#059669',
                         backgroundColor: '#059669',
-                        yAxisID: 'yRight',
-                        tension: 0.3,
                         borderWidth: 3,
+                        yAxisID: 'yRight',
+                        tension: 0.1,
                         pointRadius: 4,
-                        pointHoverRadius: 8
+                        pointHoverRadius: 8,
+                        order: 1 // Render this line on top of bars
                     },
                     {
                         type: 'line',
                         label: 'Total Budget',
                         data: rawData.map(d => d['Total Budget']),
                         borderColor: '#ef4444',
-                        backgroundColor: 'transparent', // This makes the legend's background box invisible
+                        backgroundColor: 'transparent', // Make legend background transparent
+                        fill: false,
+                        borderWidth: 3,
                         borderDash: [5, 5],
                         yAxisID: 'yRight',
-                        borderWidth: 3,
-                        pointRadius: 0, // No dots on this line
+                        pointRadius: 0,
+                        order: 1 // Render this line on top of bars
                     },
-                     {
-                        type: 'line',
+                    {
+                        type: 'scatter',
                         label: 'Overspend Point',
-                        data: rawData.map((d, index) => index === crossoverIndex ? d['Cummulative Forecast'] : null),
-                        borderColor: '#ef4444',
-                        backgroundColor: '#ef4444',
+                        data: crossoverPointData,
                         yAxisID: 'yRight',
-                        pointStyle: 'circle',
-                        pointRadius: 6,
-                        pointHoverRadius: 10,
-                        borderWidth: 0, // We only want to show the point
-                        showLine: false,
+                        backgroundColor: '#ef4444',
+                        radius: 6,
+                        hoverRadius: 8,
+                        order: 0 // Render this point on top of everything
                     }
                 ]
             };
 
-            // 5. Create Chart
-            const ctx = document.getElementById('financialChart').getContext('2d');
-            new Chart(ctx, {
+            // 4. Chart Configuration
+            const chartConfig = {
                 data: chartData,
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            backgroundColor: '#fff',
+                            titleColor: '#333',
+                            bodyColor: '#666',
+                            borderColor: '#ddd',
+                            borderWidth: 1,
+                            padding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += formatCurrency(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
                     },
                     scales: {
                         x: {
@@ -217,28 +258,30 @@
                             }
                         },
                         yLeft: {
-                            type: 'linear',
                             position: 'left',
                             title: {
                                 display: true,
                                 text: 'Monthly Amount (€)',
+                                font: { size: 14 },
                                 color: '#4b5563',
-                                font: { size: 14 }
                             },
                             ticks: {
                                 font: { size: 12 },
                                 color: '#6b7280',
                                 callback: value => `€${value / 1000}k`
                             },
+                             grid: {
+                                color: '#e0e0e0',
+                                borderDash: [3, 3]
+                            }
                         },
                         yRight: {
-                            type: 'linear',
                             position: 'right',
                             title: {
                                 display: true,
                                 text: 'Cumulative Amount (€)',
+                                font: { size: 14 },
                                 color: '#4b5563',
-                                font: { size: 14 }
                             },
                             ticks: {
                                 font: { size: 12 },
@@ -246,42 +289,18 @@
                                 callback: value => `€${value / 1000}k`
                             },
                             grid: {
-                                drawOnChartArea: false, // only show grid for left axis
-                            },
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            enabled: true,
-                            backgroundColor: '#ffffff',
-                            titleColor: '#1f2937',
-                            bodyColor: '#4b5563',
-                            borderColor: '#e5e7eb',
-                            borderWidth: 1,
-                            padding: 15,
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += formatCurrency(context.parsed.y);
-                                    }
-                                    return label;
-                                }
+                                display: false
                             }
                         }
                     }
                 }
-            });
+            };
+
+            // 5. Render Chart
+            const ctx = document.getElementById('financialChart').getContext('2d');
+            new Chart(ctx, chartConfig);
         });
     </script>
+
 </body>
 </html>
