@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Financials Overview 2025</title>
+    <title>AMS Financials Overview 2025</title>
     
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,7 +28,7 @@
         <div class="max-w-7xl mx-auto">
             <!-- Header Section -->
             <header class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">Project Financials Overview 2025</h1>
+                <h1 class="text-3xl font-bold text-gray-900">AMS Financials Overview 2025</h1>
                 <p class="text-md text-gray-600 mt-1">Budget vs. Actuals & Forecast Analysis</p>
             </header>
 
@@ -124,7 +124,6 @@
                         <h3 class="text-md font-medium text-amber-800">Key Insights & Recommendations</h3>
                         <div class="mt-2 text-sm text-amber-700">
                             <p>The analysis indicates a projected overspend of <span class="font-bold">${formatCurrency(overspend)}</span>. The cumulative forecast is set to exceed the total budget in <span class="font-bold">${crossoverMonth}</span>.</p>
-                            <p class="mt-2">It is advisable to review the project scope and identify potential cost-saving opportunities to mitigate the projected budget deviation. Proactive measures in the coming months are crucial.</p>
                         </div>
                     </div>
                 </div>
@@ -151,7 +150,7 @@
                         type: 'bar',
                         label: 'Actuals/Forecast',
                         data: rawData.map(d => d['Actuals & Estimate Burnrate']),
-                        backgroundColor: '#6b21a8',
+                        backgroundColor: '#082e59',
                         yAxisID: 'yLeft',
                         borderRadius: 4,
                     },
@@ -172,6 +171,7 @@
                         label: 'Total Budget',
                         data: rawData.map(d => d['Total Budget']),
                         borderColor: '#ef4444',
+                        backgroundColor: 'transparent', // This makes the legend's background box invisible
                         borderDash: [5, 5],
                         yAxisID: 'yRight',
                         borderWidth: 3,
