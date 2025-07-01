@@ -34,13 +34,27 @@
             padding-bottom: 0;
         }
         .accordion-content.open {
-            max-height: 1000px; /* Adjust as needed */
+            max-height: 1500px; /* Increased max-height for taller content */
             transition: max-height 1s cubic-bezier(0.9, 0, 0.5, 1), padding 0.3s ease;
             padding-top: 1.5rem;
             padding-bottom: 1.5rem;
         }
         .accordion-icon {
             transition: transform 0.3s ease;
+        }
+        /* Slider Styles */
+        .slider .slide {
+            display: none;
+        }
+        .slider .slide.active {
+            display: block;
+        }
+        .slider-button {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .slider:hover .slider-button {
+            opacity: 1;
         }
     </style>
 </head>
@@ -125,7 +139,31 @@
                             <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Consolidated Hire Business Process</h3><div class="flex items-center mt-2" data-rating="5"></div></div>
                             <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">New User Experience for Initiators, reviewers, and approvers. The various sub-business processes are now consolidated into one section, which prevents multiple actions in different BPs and allows for easier one-time processing. A great overview video is available on Community.</p><div class="mt-4"><div class="text-sm font-medium text-green-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div><a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                        <div class="accordion-content px-6">
+                            <p class="text-gray-600 mb-6">New User Experience for Initiators, reviewers, and approvers. The various sub-business processes are now consolidated into one section, which prevents multiple actions in different BPs and allows for easier one-time processing. A great overview video is available on Community.</p>
+                            
+                            <!-- Image Slider -->
+                            <div id="consolidated-hire-slider" class="slider relative w-full max-w-4xl mx-auto mb-6 rounded-lg overflow-hidden shadow-inner bg-gray-200">
+                                <div class="slide active"><img src="https://i.ibb.co/99S2Gxgw/Screenshot-2025-07-01-at-12-04-15.png" alt="Screenshot 1" class="w-full h-auto object-contain"></div>
+                                <div class="slide"><img src="https://i.ibb.co/mrrYXgF9/Screenshot-2025-07-01-at-12-04-45.png" alt="Screenshot 2" class="w-full h-auto object-contain"></div>
+                                <div class="slide"><img src="https://i.ibb.co/LdbFFQBp/Screenshot-2025-07-01-at-12-04-53.png" alt="Screenshot 3" class="w-full h-auto object-contain"></div>
+                                <div class="slide"><img src="https://i.ibb.co/RGYjtwz1/Screenshot-2025-07-01-at-12-04-59.png" alt="Screenshot 4" class="w-full h-auto object-contain"></div>
+                                <div class="slide"><img src="https://i.ibb.co/1tddsctc/Screenshot-2025-07-01-at-12-05-04.png" alt="Screenshot 5" class="w-full h-auto object-contain"></div>
+                                <div class="slide"><img src="https://i.ibb.co/7t8T83Yq/Screenshot-2025-07-01-at-12-05-13.png" alt="Screenshot 6" class="w-full h-auto object-contain"></div>
+                                
+                                <button class="slider-button prev-button absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 z-10">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                </button>
+                                <button class="slider-button next-button absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 z-10">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-green-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div>
+                                <a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a>
+                            </div>
+                        </div>
                     </div>
                     <!-- Feature Accordion: AI Search -->
                     <div id="hcm-ai-search" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
@@ -201,6 +239,15 @@
 
         // Function to switch between the main view and detail views
         function showView(viewId) {
+            if (viewId === 'main-view') {
+                const openAccordions = document.querySelectorAll('.accordion-content.open');
+                openAccordions.forEach(content => {
+                    const button = content.previousElementSibling;
+                    const icon = button.querySelector('.accordion-icon');
+                    content.classList.remove('open');
+                    icon.classList.remove('rotate-180');
+                });
+            }
             const views = document.querySelectorAll('.view');
             views.forEach(view => {
                 view.classList.remove('visible-view');
@@ -222,8 +269,7 @@
                 if (item) {
                     item.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     const button = item.querySelector('button');
-                    const content = button.nextElementSibling;
-                    if (!content.classList.contains('open')) {
+                    if (!button.nextElementSibling.classList.contains('open')) {
                         toggleAccordion(button);
                     }
                     item.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500', 'transition-shadow', 'duration-300');
@@ -236,10 +282,21 @@
 
         // Function to toggle accordion items
         function toggleAccordion(buttonEl) {
-            const content = buttonEl.nextElementSibling;
-            const icon = buttonEl.querySelector('.accordion-icon');
-            content.classList.toggle('open');
-            icon.classList.toggle('rotate-180');
+            const wasOpen = buttonEl.nextElementSibling.classList.contains('open');
+
+            // Close all accordions in the same container
+            const parentContainer = buttonEl.closest('.space-y-4');
+            const allButtons = parentContainer.querySelectorAll(':scope > div > button');
+            allButtons.forEach(btn => {
+                btn.nextElementSibling.classList.remove('open');
+                btn.querySelector('.accordion-icon').classList.remove('rotate-180');
+            });
+            
+            // If the clicked one wasn't open, open it
+            if (!wasOpen) {
+                buttonEl.nextElementSibling.classList.add('open');
+                buttonEl.querySelector('.accordion-icon').classList.add('rotate-180');
+            }
         }
 
         // Function to generate star ratings
@@ -257,9 +314,59 @@
                 container.innerHTML = starsHTML;
             });
         }
+        
+        // --- Slider Logic ---
+        function initSlider(sliderId) {
+            const slider = document.getElementById(sliderId);
+            if (!slider) return;
 
-        // Initialize stars on page load
-        document.addEventListener('DOMContentLoaded', generateStars);
+            const slides = slider.querySelectorAll('.slide');
+            const prevButton = slider.querySelector('.prev-button');
+            const nextButton = slider.querySelector('.next-button');
+            let currentSlide = 0;
+
+            function updateArrowVisibility() {
+                // Hide previous button if on the first slide
+                prevButton.style.display = currentSlide === 0 ? 'none' : 'block';
+                // Hide next button if on the last slide
+                nextButton.style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
+            }
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    }
+                });
+                updateArrowVisibility();
+            }
+
+            prevButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent accordion from toggling
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            });
+
+            nextButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent accordion from toggling
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            });
+
+            showSlide(currentSlide);
+        }
+
+
+        // Initialize everything on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            generateStars();
+            initSlider('consolidated-hire-slider');
+        });
     </script>
 
 </body>
