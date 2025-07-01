@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workday 2024 R2 - What's New</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.cdnfonts.com/css/geomanist');
         html {
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Geomanist', sans-serif;
         }
         .view {
             transition: opacity 0.3s ease-in-out;
@@ -50,7 +49,7 @@
             display: block;
         }
         .slider-button {
-            opacity: 0;
+            opacity: 1; /* Always visible */
             transition: opacity 0.3s ease;
         }
         .slider:hover .slider-button {
@@ -71,6 +70,16 @@
 
         <!-- Main View (Landing Page) -->
         <div id="main-view" class="view visible-view">
+
+            <!-- Introductory Text Section -->
+            <section class="mb-12 text-center max-w-4xl mx-auto">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Welcome to the overview for the Workday 2024 R2 release. To help you stay current, this portal highlights the most impactful new features and enhancements. We encourage you to explore these updates and use the provided links to the Workday Community for more detailed information. Please note that any impact analysis provided is a preliminary guideline.
+                </p>
+                <p class="text-md text-gray-600 mt-6 font-semibold">
+                    The Top Highlights below showcase the most interesting items across all modules. For a deeper dive, scroll down to explore updates by specific module.
+                </p>
+            </section>
             
             <!-- Key Highlights Section -->
             <section id="highlights" class="mb-16">
@@ -161,7 +170,7 @@
 
                             <div class="flex items-center justify-between">
                                 <div class="text-sm font-medium text-green-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div>
-                                <a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a>
+                                <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a>
                             </div>
                         </div>
                     </div>
@@ -171,7 +180,7 @@
                             <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">AI Enhances Search</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
                             <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">A great new feature if you have the Workday Assistant SKU. This is an add-on for configuring AI to assist with searches. Most importantly, users can now search for Learning content without having to go to the Learning Module Search functionality.</p><div class="mt-4"><div class="text-sm font-medium text-green-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div><a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                        <div class="accordion-content px-6"><p class="text-gray-600">A great new feature if you have the Workday Assistant SKU. This is an add-on for configuring AI to assist with searches. Most importantly, users can now search for Learning content without having to go to the Learning Module Search functionality.</p><div class="mt-4"><div class="text-sm font-medium text-green-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
                     </div>
                     <!-- Feature Accordion: Article AI -->
                     <div id="hcm-article-ai" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
@@ -179,7 +188,7 @@
                             <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Article Summarization & Translation with AI</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
                             <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">This feature is specific to Workday Help. The main difference between any AI and Workday AI is confidentiality; information you upload won't be shared publicly. It requires an 'opt-in' and can significantly impact the creation and maintenance of training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort (Each)</div><a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                        <div class="accordion-content px-6"><p class="text-gray-600">This feature is specific to Workday Help. The main difference between any AI and Workday AI is confidentiality; information you upload won't be shared publicly. It requires an 'opt-in' and can significantly impact the creation and maintenance of training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort (Each)</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
                     </div>
                 </div>
             </div>
@@ -195,7 +204,7 @@
                             <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Notification Configuration</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
                             <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">Workday is expanding notification settings for Help. You can distinguish notifications between case owners, solvers, and collaborators. This can be a very welcome feature if you actively use Workday Help, and notifications can be configured per service team.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
+                        <div class="accordion-content px-6"><p class="text-gray-600">Workday is expanding notification settings for Help. You can distinguish notifications between case owners, solvers, and collaborators. This can be a very welcome feature if you actively use Workday Help, and notifications can be configured per service team.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
                     </div>
                     <!-- Feature Accordion: Reopen Cases -->
                     <div id="help-reopen-cases" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
@@ -203,7 +212,7 @@
                             <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Owners Can Reopen Cases</h3><div class="flex items-center mt-2" data-rating="3"></div></div>
                             <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">This only works for Case Owners with access to the Workday Help Center; external Case Owners cannot reopen cases. The feature is very straightforward for managers/case owners but may impact training materials and existing integrations.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort</div><a href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
+                        <div class="accordion-content px-6"><p class="text-gray-600">This only works for Case Owners with access to the Workday Help Center; external Case Owners cannot reopen cases. The feature is very straightforward for managers/case owners but may impact training materials and existing integrations.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
                     </div>
                     <!-- Feature Accordion: Satisfaction Surveys -->
                     <div id="help-satisfaction-surveys" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
@@ -211,7 +220,7 @@
                             <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Satisfaction Surveys</h3><div class="flex items-center mt-2" data-rating="5"></div></div>
                             <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">A new business process needs to be created, but the survey itself is straightforward. It can be completed directly from the case via a 'give feedback' button. This is very interesting if you want to collect feedback from case owners and could impact training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
+                        <div class="accordion-content px-6"><p class="text-gray-600">A new business process needs to be created, but the survey itself is straightforward. It can be completed directly from the case via a 'give feedback' button. This is very interesting if you want to collect feedback from case owners and could impact training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
                     </div>
                 </div>
             </div>
@@ -227,7 +236,7 @@
                             <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Job Description Generation on Job Requisitions</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
                             <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">It would be interesting to understand more about what is needed for the AI to come up with a job description, as there is not much information on Community yet. This feature uses generative AI to speed up the process.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~10 Hours Setup Effort</div><a href="#" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Community Link</a></div></div>
+                        <div class="accordion-content px-6"><p class="text-gray-600">It would be interesting to understand more about what is needed for the AI to come up with a job description, as there is not much information on Community yet. This feature uses generative AI to speed up the process.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~10 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Community Link</a></div></div>
                     </div>
                 </div>
             </div>
