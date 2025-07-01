@@ -3,315 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMS Financials Overview 2025</title>
-    
-    <!-- Tailwind CSS for styling -->
+    <title>Workday 2024 R2 - What's New</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Chart.js for the chart -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Apply the Inter font family */
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Inter', sans-serif;
         }
+        .view {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .hidden-view {
+            display: none;
+            opacity: 0;
+        }
+        .visible-view {
+            display: block;
+            opacity: 1;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .accordion-content.open {
+            max-height: 1000px; /* Adjust as needed */
+            transition: max-height 1s cubic-bezier(0.9, 0, 0.5, 1), padding 0.3s ease;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-gray-50 text-gray-800">
 
-    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        <!-- Header Section -->
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">AMS Financials Overview 2025</h1>
-            <p class="text-md text-gray-600 mt-1">Budget vs. Actuals & Forecast Analysis</p>
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 md:p-8">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-800">Workday 2024 R2</h1>
+            <p class="text-xl text-gray-600 mt-2">What's New: Key Highlights & Updates</p>
         </header>
 
-        <!-- KPI Info Cards Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <!-- Total Budget Card -->
-            <div id="total-budget-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4 transition-transform duration-300 hover:scale-105 hover:shadow-xl" style="border-color: #3b82f6;">
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-medium text-gray-500">Total Budget</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <!-- Main View (Landing Page) -->
+        <div id="main-view" class="view visible-view">
+            
+            <!-- Key Highlights Section -->
+            <section id="highlights" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-700 mb-6 border-b-2 border-blue-200 pb-2">Top Highlights</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Highlight Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('hcm-view', 'hcm-consolidated-hire')">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">HCM</span>
+                        <h3 class="font-bold text-lg mt-2 mb-2 text-blue-900">Consolidated Hire Process</h3>
+                        <p class="text-gray-600 text-sm">A streamlined, single-page experience for hiring, reducing manual effort and preventing delays. One of the most efficient updates this release.</p>
                     </div>
-                    <p id="kpi-total-budget" class="text-3xl font-bold text-gray-800">€0</p>
+                    <!-- Highlight Card 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('recruiting-view', 'recruiting-job-description')">
+                        <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Recruiting</span>
+                        <h3 class="font-bold text-lg mt-2 mb-2 text-red-900">AI Job Description Generation</h3>
+                        <p class="text-gray-600 text-sm">Leverage generative AI to quickly create comprehensive and tailored job descriptions directly within job requisitions.</p>
+                    </div>
+                    <!-- Highlight Card 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('hcm-view', 'hcm-ai-search')">
+                         <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">HCM</span>
+                        <h3 class="font-bold text-lg mt-2 mb-2 text-blue-900">AI-Enhanced Search</h3>
+                        <p class="text-gray-600 text-sm">Find tasks and reports faster than ever. AI analyzes your query to display the most relevant results at the top, saving time and effort.</p>
+                    </div>
+                    <!-- Highlight Card 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('help-view', 'help-satisfaction-surveys')">
+                        <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Help</span>
+                        <h3 class="font-bold text-lg mt-2 mb-2 text-green-900">Case Satisfaction Surveys</h3>
+                        <p class="text-gray-600 text-sm">Easily configure and deploy surveys to collect feedback on Help cases, helping you identify successes and areas for improvement.</p>
+                    </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-3">The total allocated budget for AMS.</p>
-            </div>
+            </section>
 
-            <!-- Projected Spend Card -->
-            <div id="projected-spend-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4 transition-transform duration-300 hover:scale-105 hover:shadow-xl" style="border-color: #f59e0b;">
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-medium text-gray-500">Projected Total Spend</p>
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            <!-- Modules Section -->
+            <section id="modules">
+                <h2 class="text-3xl font-bold text-gray-700 mb-6 border-b-2 border-blue-200 pb-2">Explore by Module</h2>
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Module Card: HCM -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('hcm-view')">
+                        <div class="p-6 bg-blue-600 text-white"><h3 class="text-2xl font-bold">HCM</h3><p class="opacity-90">Core Human Capital Management</p></div>
+                        <div class="p-6"><p class="text-sm text-gray-700 mb-4">Updates include a consolidated hire process, AI-enhanced search, improved Change Job UX, and more.</p><div class="text-right font-semibold text-blue-600 hover:text-blue-800">View Details &rarr;</div></div>
                     </div>
-                    <p id="kpi-projected-spend" class="text-3xl font-bold text-gray-800">€0</p>
-                </div>
-                <p class="text-xs text-gray-500 mt-3">Estimated total cost based on current burn rate.</p>
-            </div>
-
-            <!-- Projected Overspend Card -->
-            <div id="projected-overspend-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4 transition-transform duration-300 hover:scale-105 hover:shadow-xl" style="border-color: #ef4444;">
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-medium text-gray-500">Projected Overspend</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <!-- Module Card: Help -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('help-view')">
+                        <div class="p-6 bg-green-600 text-white"><h3 class="text-2xl font-bold">Help</h3><p class="opacity-90">Case Management & Support</p></div>
+                        <div class="p-6"><p class="text-sm text-gray-700 mb-4">Enhancements to case notifications, satisfaction surveys, and the ability for case owners to reopen cases.</p><div class="text-right font-semibold text-green-600 hover:text-green-800">View Details &rarr;</div></div>
                     </div>
-                    <p id="kpi-overspend" class="text-3xl font-bold text-gray-800">€0</p>
-                </div>
-                <p id="kpi-overspend-desc" class="text-xs text-gray-500 mt-3">Projected to be €0 over budget.</p>
-            </div>
-
-            <!-- Budget Crossover Card -->
-            <div id="crossover-card" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between border-l-4 transition-transform duration-300 hover:scale-105 hover:shadow-xl" style="border-color: #10b981;">
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-medium text-gray-500">Budget Crossover</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></svg>
+                    <!-- Module Card: Recruiting -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('recruiting-view')">
+                        <div class="p-6 bg-red-600 text-white"><h3 class="text-2xl font-bold">Recruiting</h3><p class="opacity-90">Talent Acquisition</p></div>
+                        <div class="p-6"><p class="text-sm text-gray-700 mb-4">Featuring AI-powered job description generation and updates for collective agreements and candidate management.</p><div class="text-right font-semibold text-red-600 hover:text-red-800">View Details &rarr;</div></div>
                     </div>
-                    <p id="kpi-crossover-month" class="text-3xl font-bold text-gray-800">N/A</p>
                 </div>
-                <p class="text-xs text-gray-500 mt-3">The month when spending is forecasted to exceed the total budget.</p>
-            </div>
+            </section>
         </div>
 
-        <!-- Chart Section -->
-        <div class="bg-white rounded-xl shadow-md p-4 sm:p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-1">Financial Performance</h2>
-            <p class="text-sm text-gray-500 mb-6">Monthly figures and cumulative forecast against total budget.</p>
-            <div style="height: 500px;">
-                <canvas id="financialChart"></canvas>
-            </div>
-        </div>
-        
-        <!-- Insights Section -->
-        <div class="mt-8 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <!-- Detail Views Container -->
+        <div id="detail-views">
+            <!-- HCM Detail View -->
+            <div id="hcm-view" class="view hidden-view">
+                <button onclick="showView('main-view')" class="mb-8 bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">&larr; Back to All Modules</button>
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">HCM Updates</h2>
+                <div class="space-y-4">
+                    <!-- Feature Accordion: Consolidated Hire -->
+                    <div id="hcm-consolidated-hire" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
+                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Consolidated Hire Business Process</h3><div class="flex items-center mt-2" data-rating="5"></div></div>
+                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6"><p class="text-gray-600">New User Experience for Initiators, reviewers, and approvers. The various sub-business processes are now consolidated into one section, which prevents multiple actions in different BPs and allows for easier one-time processing. A great overview video is available on Community.</p><div class="mt-4"><div class="text-sm font-medium text-green-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div><a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                    </div>
+                    <!-- Feature Accordion: AI Search -->
+                    <div id="hcm-ai-search" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
+                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">AI Enhances Search</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
+                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6"><p class="text-gray-600">A great new feature if you have the Workday Assistant SKU. This is an add-on for configuring AI to assist with searches. Most importantly, users can now search for Learning content without having to go to the Learning Module Search functionality.</p><div class="mt-4"><div class="text-sm font-medium text-green-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div><a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                    </div>
+                    <!-- Feature Accordion: Article AI -->
+                    <div id="hcm-article-ai" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
+                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Article Summarization & Translation with AI</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
+                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6"><p class="text-gray-600">This feature is specific to Workday Help. The main difference between any AI and Workday AI is confidentiality; information you upload won't be shared publicly. It requires an 'opt-in' and can significantly impact the creation and maintenance of training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort (Each)</div><a href="#" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                    </div>
                 </div>
-                <div class="ml-3">
-                    <h3 class="text-md font-medium text-amber-800">Key Insights & Recommendations</h3>
-                    <div id="insights-text" class="mt-2 text-sm text-amber-700">
-                        <p>The analysis indicates a projected overspend of <span id="insight-overspend" class="font-bold">€0</span>. The cumulative forecast is set to exceed the total budget in <span id="insight-crossover" class="font-bold">N/A</span>.</p>
+            </div>
+
+            <!-- Help Detail View -->
+            <div id="help-view" class="view hidden-view">
+                <button onclick="showView('main-view')" class="mb-8 bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">&larr; Back to All Modules</button>
+                <h2 class="text-3xl font-bold text-green-800 mb-6">Help Updates</h2>
+                <div class="space-y-4">
+                    <!-- Feature Accordion: Case Notifications -->
+                    <div id="help-case-notifications" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
+                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Notification Configuration</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
+                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6"><p class="text-gray-600">Workday is expanding notification settings for Help. You can distinguish notifications between case owners, solvers, and collaborators. This can be a very welcome feature if you actively use Workday Help, and notifications can be configured per service team.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
+                    </div>
+                    <!-- Feature Accordion: Reopen Cases -->
+                    <div id="help-reopen-cases" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
+                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Owners Can Reopen Cases</h3><div class="flex items-center mt-2" data-rating="3"></div></div>
+                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6"><p class="text-gray-600">This only works for Case Owners with access to the Workday Help Center; external Case Owners cannot reopen cases. The feature is very straightforward for managers/case owners but may impact training materials and existing integrations.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort</div><a href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
+                    </div>
+                    <!-- Feature Accordion: Satisfaction Surveys -->
+                    <div id="help-satisfaction-surveys" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
+                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Satisfaction Surveys</h3><div class="flex items-center mt-2" data-rating="5"></div></div>
+                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6"><p class="text-gray-600">A new business process needs to be created, but the survey itself is straightforward. It can be completed directly from the case via a 'give feedback' button. This is very interesting if you want to collect feedback from case owners and could impact training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="#" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recruiting Detail View -->
+            <div id="recruiting-view" class="view hidden-view">
+                <button onclick="showView('main-view')" class="mb-8 bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">&larr; Back to All Modules</button>
+                <h2 class="text-3xl font-bold text-red-800 mb-6">Recruiting Updates</h2>
+                <div class="space-y-4">
+                    <!-- Feature Accordion: Job Description Gen -->
+                    <div id="recruiting-job-description" class="bg-white rounded-lg shadow-md border-l-4 border-red-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
+                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Job Description Generation on Job Requisitions</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
+                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6"><p class="text-gray-600">It would be interesting to understand more about what is needed for the AI to come up with a job description, as there is not much information on Community yet. This feature uses generative AI to speed up the process.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~10 Hours Setup Effort</div><a href="#" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Community Link</a></div></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Contact Button Section -->
-        <div class="mt-10 text-center">
-            <a href="mailto:brian@successday.nl" 
-               class="inline-block text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-300"
-               style="background-color: #082e59;"
-               onmouseover="this.style.backgroundColor='#a7f3d0'; this.style.color='#082e59';"
-               onmouseout="this.style.backgroundColor='#082e59'; this.style.color='white';">
-               Contact your AMS Lead
-            </a>
-        </div>
-
     </div>
 
     <script>
-        // --- Data and Configuration ---
-        const rawData = [
-            { MONTH: 'MARCH', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 47000, "Cummulative Forecast": 47000, "Total Budget": 417000 },
-            { MONTH: 'APRIL', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 47000, "Cummulative Forecast": 94000, "Total Budget": 417000 },
-            { MONTH: 'MAY', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 47000, "Cummulative Forecast": 141000, "Total Budget": 417000 },
-            { MONTH: 'JUNE', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 44134, "Cummulative Forecast": 185134, "Total Budget": 417000 },
-            { MONTH: 'JULY', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 46000, "Cummulative Forecast": 231134, "Total Budget": 417000 },
-            { MONTH: 'AUGUST', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 46000, "Cummulative Forecast": 277134, "Total Budget": 417000 },
-            { MONTH: 'SEPTEMBER', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 46000, "Cummulative Forecast": 323134, "Total Budget": 417000 },
-            { MONTH: 'OCTOBER', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 22000, "Cummulative Forecast": 345134, "Total Budget": 417000 },
-            { MONTH: 'NOVEMBER', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 22000, "Cummulative Forecast": 367134, "Total Budget": 417000 },
-            { MONTH: 'DECEMBER', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 22000, "Cummulative Forecast": 389134, "Total Budget": 417000 },
-            { MONTH: 'JANUARY', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 22000, "Cummulative Forecast": 411134, "Total Budget": 417000 },
-            { MONTH: 'FEBRUARY', "Budget per Month": 34828, "Actuals & Estimate Burnrate": 22000, "Cummulative Forecast": 433134, "Total Budget": 417000 }
-        ];
+        // --- JavaScript for Navigation and Interactivity ---
 
-        // --- Helper Functions ---
-        const formatCurrency = (value) => new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(value);
-
-        // --- Main Logic ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Calculate KPIs
-            const totalBudget = rawData.length > 0 ? rawData[0]['Total Budget'] : 0;
-            const projectedSpend = rawData.length > 0 ? rawData[rawData.length - 1]['Cummulative Forecast'] : 0;
-            const overspend = projectedSpend - totalBudget;
-            const crossover = rawData.find(d => d['Cummulative Forecast'] > totalBudget);
-            const crossoverMonth = crossover ? crossover.MONTH : 'N/A';
-            const crossoverIndex = rawData.findIndex(d => d['Cummulative Forecast'] > totalBudget);
-
-            // 2. Update KPI Cards and Insights
-            document.getElementById('kpi-total-budget').textContent = formatCurrency(totalBudget);
-            document.getElementById('kpi-projected-spend').textContent = formatCurrency(projectedSpend);
-            document.getElementById('kpi-overspend').textContent = formatCurrency(overspend);
-            document.getElementById('kpi-overspend-desc').textContent = `Projected to be ${formatCurrency(Math.abs(overspend))} over budget.`;
-            document.getElementById('kpi-crossover-month').textContent = crossoverMonth;
-            document.getElementById('insight-overspend').textContent = formatCurrency(overspend);
-            document.getElementById('insight-crossover').textContent = crossoverMonth;
-
-            // 3. Prepare Chart Data
-            const labels = rawData.map(d => d.MONTH);
-            const crossoverPointData = new Array(labels.length).fill(null);
-            if (crossoverIndex !== -1) {
-                crossoverPointData[crossoverIndex] = rawData[crossoverIndex]['Cummulative Forecast'];
+        // Function to switch between the main view and detail views
+        function showView(viewId) {
+            const views = document.querySelectorAll('.view');
+            views.forEach(view => {
+                view.classList.remove('visible-view');
+                view.classList.add('hidden-view');
+            });
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.remove('hidden-view');
+                targetView.classList.add('visible-view');
             }
+            window.scrollTo(0, 0);
+        }
 
-            const chartData = {
-                labels: labels,
-                datasets: [
-                    {
-                        type: 'bar',
-                        label: 'Monthly Budget',
-                        data: rawData.map(d => d['Budget per Month']),
-                        backgroundColor: '#a7f3d0',
-                        yAxisID: 'yLeft',
-                        borderRadius: 4,
-                        order: 2 // Render bars behind lines
-                    },
-                    {
-                        type: 'bar',
-                        label: 'Actuals/Forecast',
-                        data: rawData.map(d => d['Actuals & Estimate Burnrate']),
-                        backgroundColor: '#082e59',
-                        yAxisID: 'yLeft',
-                        borderRadius: 4,
-                        order: 2 // Render bars behind lines
-                    },
-                    {
-                        type: 'line',
-                        label: 'Cumulative Forecast',
-                        data: rawData.map(d => d['Cummulative Forecast']),
-                        borderColor: '#059669',
-                        backgroundColor: '#059669',
-                        borderWidth: 3,
-                        yAxisID: 'yRight',
-                        tension: 0.1,
-                        pointRadius: 4,
-                        pointHoverRadius: 8,
-                        order: 1 // Render this line on top of bars
-                    },
-                    {
-                        type: 'line',
-                        label: 'Total Budget',
-                        data: rawData.map(d => d['Total Budget']),
-                        borderColor: '#ef4444',
-                        backgroundColor: 'transparent', // Make legend background transparent
-                        fill: false,
-                        borderWidth: 3,
-                        borderDash: [5, 5],
-                        yAxisID: 'yRight',
-                        pointRadius: 0,
-                        order: 1 // Render this line on top of bars
-                    },
-                    {
-                        type: 'scatter',
-                        label: 'Overspend Point',
-                        data: crossoverPointData,
-                        yAxisID: 'yRight',
-                        backgroundColor: '#ef4444',
-                        radius: 6,
-                        hoverRadius: 8,
-                        order: 0 // Render this point on top of everything
+        // Function to show a specific item and expand it
+        function showItem(viewId, itemId) {
+            showView(viewId);
+            setTimeout(() => {
+                const item = document.getElementById(itemId);
+                if (item) {
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const button = item.querySelector('button');
+                    const content = button.nextElementSibling;
+                    if (!content.classList.contains('open')) {
+                        toggleAccordion(button);
                     }
-                ]
-            };
-
-            // 4. Chart Configuration
-            const chartConfig = {
-                data: chartData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                        tooltip: {
-                            backgroundColor: '#fff',
-                            titleColor: '#333',
-                            bodyColor: '#666',
-                            borderColor: '#ddd',
-                            borderWidth: 1,
-                            padding: 10,
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += formatCurrency(context.parsed.y);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                font: { size: 12 },
-                                color: '#6b7280',
-                                maxRotation: 45,
-                                minRotation: 45,
-                            },
-                            grid: {
-                                display: false
-                            }
-                        },
-                        yLeft: {
-                            position: 'left',
-                            title: {
-                                display: true,
-                                text: 'Monthly Amount (€)',
-                                font: { size: 14 },
-                                color: '#4b5563',
-                            },
-                            ticks: {
-                                font: { size: 12 },
-                                color: '#6b7280',
-                                callback: value => `€${value / 1000}k`
-                            },
-                             grid: {
-                                color: '#e0e0e0',
-                                borderDash: [3, 3]
-                            }
-                        },
-                        yRight: {
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: 'Cumulative Amount (€)',
-                                font: { size: 14 },
-                                color: '#4b5563',
-                            },
-                            ticks: {
-                                font: { size: 12 },
-                                color: '#6b7280',
-                                callback: value => `€${value / 1000}k`
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    }
+                    item.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500', 'transition-shadow', 'duration-300');
+                    setTimeout(() => {
+                        item.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-500');
+                    }, 2500);
                 }
-            };
+            }, 300);
+        }
 
-            // 5. Render Chart
-            const ctx = document.getElementById('financialChart').getContext('2d');
-            new Chart(ctx, chartConfig);
-        });
+        // Function to toggle accordion items
+        function toggleAccordion(buttonEl) {
+            const content = buttonEl.nextElementSibling;
+            const icon = buttonEl.querySelector('.accordion-icon');
+            content.classList.toggle('open');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Function to generate star ratings
+        function generateStars() {
+            const starContainers = document.querySelectorAll('[data-rating]');
+            const starSVG = `<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
+            const emptyStarSVG = `<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
+            
+            starContainers.forEach(container => {
+                const rating = parseInt(container.dataset.rating, 10);
+                let starsHTML = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHTML += i <= rating ? starSVG : emptyStarSVG;
+                }
+                container.innerHTML = starsHTML;
+            });
+        }
+
+        // Initialize stars on page load
+        document.addEventListener('DOMContentLoaded', generateStars);
     </script>
 
 </body>
