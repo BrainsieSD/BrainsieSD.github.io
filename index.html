@@ -8,53 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
         @import url('https://fonts.cdnfonts.com/css/geomanist');
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Geomanist', sans-serif;
-        }
-        .view {
-            transition: opacity 0.3s ease-in-out;
-        }
-        .hidden-view {
-            display: none;
-            opacity: 0;
-        }
-        .visible-view {
-            display: block;
-            opacity: 1;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-        .accordion-content.open {
-            max-height: 1500px; /* Increased max-height for taller content */
-            transition: max-height 1s cubic-bezier(0.9, 0, 0.5, 1), padding 0.3s ease;
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-        }
-        .accordion-icon {
-            transition: transform 0.3s ease;
-        }
-        /* Slider Styles */
-        .slider .slide {
-            display: none;
-        }
-        .slider .slide.active {
-            display: block;
-        }
-        .slider-button {
-            opacity: 1; /* Always visible */
-            transition: opacity 0.3s ease;
-        }
-        .slider:hover .slider-button {
-            opacity: 1;
-        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Geomanist', sans-serif; }
+        .view { transition: opacity 0.3s ease-in-out; }
+        .hidden-view { display: none; opacity: 0; }
+        .visible-view { display: block; opacity: 1; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.3s ease; padding-top: 0; padding-bottom: 0; }
+        .accordion-content.open { max-height: 1500px; transition: max-height 1s cubic-bezier(0.9, 0, 0.5, 1), padding 0.3s ease; padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .slider .slide { display: none; }
+        .slider .slide.active { display: block; }
+        .slider-button { opacity: 1; transition: opacity 0.3s ease; }
+        .slider:hover .slider-button { opacity: 1; }
+        #wishlist-popup { transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; }
+        .toast { transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; transform: translateY(100%); opacity: 0; }
+        .toast.show { transform: translateY(0); opacity: 1; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -70,67 +38,67 @@
 
         <!-- Main View (Landing Page) -->
         <div id="main-view" class="view visible-view">
-
-            <!-- Introductory Text Section -->
             <section class="mb-12 text-center max-w-4xl mx-auto">
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    Welcome to the overview for the Workday 2024 R2 release. To help you stay current, this portal highlights the most impactful new features and enhancements. We encourage you to explore these updates and use the provided links to the Workday Community for more detailed information. Please note that any impact analysis provided is a preliminary guideline.
-                </p>
-                <p class="text-md text-gray-600 mt-6 font-semibold">
-                    The Top Highlights below showcase the most interesting items across all modules. For a deeper dive, scroll down to explore updates by specific module.
-                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">Welcome to the overview for the Workday 2024 R2 release. To help you stay current, this portal highlights the most impactful new features and enhancements. We encourage you to explore these updates and use the provided links to the Workday Community for more detailed information. Please note that any impact analysis provided is a preliminary guideline.</p>
+                <p class="text-md text-gray-600 mt-6 font-semibold">The Top Highlights below showcase the most interesting items across all modules. For a deeper dive, scroll down to explore updates by specific module.</p>
             </section>
             
-            <!-- Key Highlights Section -->
             <section id="highlights" class="mb-16">
                 <h2 class="text-3xl font-bold text-gray-700 mb-6 border-b-2 border-blue-200 pb-2">Top Highlights</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Highlight Card 1 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('hcm-view', 'hcm-consolidated-hire')">
-                        <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">HCM</span>
-                        <h3 class="font-bold text-lg mt-2 mb-2 text-blue-900">Consolidated Hire Process</h3>
-                        <p class="text-gray-600 text-sm">A streamlined, single-page experience for hiring, reducing manual effort and preventing delays. One of the most efficient updates this release.</p>
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 flex flex-col">
+                        <div class="flex-grow cursor-pointer" onclick="showItem('hcm-view', 'hcm-consolidated-hire')">
+                            <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">HCM</span>
+                            <h3 class="font-bold text-lg mt-2 mb-2 text-blue-900">Consolidated Hire Process</h3>
+                            <p class="text-gray-600 text-sm">A streamlined, single-page experience for hiring, reducing manual effort and preventing delays.</p>
+                        </div>
+                        <button onclick="toggleWishlistItem(event, 'hcm-consolidated-hire', 'Consolidated Hire Process', 'HCM', 0)" class="wishlist-btn-icon mt-4 self-end bg-gray-100 hover:bg-blue-100 text-blue-700 p-2 rounded-full transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
                     </div>
                     <!-- Highlight Card 2 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('recruiting-view', 'recruiting-job-description')">
-                        <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Recruiting</span>
-                        <h3 class="font-bold text-lg mt-2 mb-2 text-red-900">AI Job Description Generation</h3>
-                        <p class="text-gray-600 text-sm">Leverage generative AI to quickly create comprehensive and tailored job descriptions directly within job requisitions.</p>
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 flex flex-col">
+                        <div class="flex-grow cursor-pointer" onclick="showItem('recruiting-view', 'recruiting-job-description')">
+                            <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Recruiting</span>
+                            <h3 class="font-bold text-lg mt-2 mb-2 text-red-900">AI Job Description Generation</h3>
+                            <p class="text-gray-600 text-sm">Leverage generative AI to quickly create comprehensive and tailored job descriptions.</p>
+                        </div>
+                        <button onclick="toggleWishlistItem(event, 'recruiting-job-description', 'AI Job Description Generation', 'Recruiting', 10)" class="wishlist-btn-icon mt-4 self-end bg-gray-100 hover:bg-red-100 text-red-700 p-2 rounded-full transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
                     </div>
                     <!-- Highlight Card 3 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('hcm-view', 'hcm-ai-search')">
-                         <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">HCM</span>
-                        <h3 class="font-bold text-lg mt-2 mb-2 text-blue-900">AI-Enhanced Search</h3>
-                        <p class="text-gray-600 text-sm">Find tasks and reports faster than ever. AI analyzes your query to display the most relevant results at the top, saving time and effort.</p>
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 flex flex-col">
+                        <div class="flex-grow cursor-pointer" onclick="showItem('hcm-view', 'hcm-ai-search')">
+                             <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">HCM</span>
+                            <h3 class="font-bold text-lg mt-2 mb-2 text-blue-900">AI-Enhanced Search</h3>
+                            <p class="text-gray-600 text-sm">Find tasks and reports faster than ever. AI analyzes your query to display the most relevant results.</p>
+                        </div>
+                        <button onclick="toggleWishlistItem(event, 'hcm-ai-search', 'AI-Enhanced Search', 'HCM', 0)" class="wishlist-btn-icon mt-4 self-end bg-gray-100 hover:bg-blue-100 text-blue-700 p-2 rounded-full transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
                     </div>
                     <!-- Highlight Card 4 -->
-                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer" onclick="showItem('help-view', 'help-satisfaction-surveys')">
-                        <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Help</span>
-                        <h3 class="font-bold text-lg mt-2 mb-2 text-green-900">Case Satisfaction Surveys</h3>
-                        <p class="text-gray-600 text-sm">Easily configure and deploy surveys to collect feedback on Help cases, helping you identify successes and areas for improvement.</p>
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-200 flex flex-col">
+                        <div class="flex-grow cursor-pointer" onclick="showItem('help-view', 'help-satisfaction-surveys')">
+                            <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Help</span>
+                            <h3 class="font-bold text-lg mt-2 mb-2 text-green-900">Case Satisfaction Surveys</h3>
+                            <p class="text-gray-600 text-sm">Easily configure and deploy surveys to collect feedback on Help cases.</p>
+                        </div>
+                        <button onclick="toggleWishlistItem(event, 'help-satisfaction-surveys', 'Case Satisfaction Surveys', 'Help', 15)" class="wishlist-btn-icon mt-4 self-end bg-gray-100 hover:bg-green-100 text-green-700 p-2 rounded-full transition">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
                     </div>
                 </div>
             </section>
 
-            <!-- Modules Section -->
             <section id="modules">
                 <h2 class="text-3xl font-bold text-gray-700 mb-6 border-b-2 border-blue-200 pb-2">Explore by Module</h2>
                 <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Module Card: HCM -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('hcm-view')">
-                        <div class="p-6 bg-blue-600 text-white"><h3 class="text-2xl font-bold">HCM</h3><p class="opacity-90">Core Human Capital Management</p></div>
-                        <div class="p-6"><p class="text-sm text-gray-700 mb-4">Updates include a consolidated hire process, AI-enhanced search, improved Change Job UX, and more.</p><div class="text-right font-semibold text-blue-600 hover:text-blue-800">View Details &rarr;</div></div>
-                    </div>
-                    <!-- Module Card: Help -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('help-view')">
-                        <div class="p-6 bg-green-600 text-white"><h3 class="text-2xl font-bold">Help</h3><p class="opacity-90">Case Management & Support</p></div>
-                        <div class="p-6"><p class="text-sm text-gray-700 mb-4">Enhancements to case notifications, satisfaction surveys, and the ability for case owners to reopen cases.</p><div class="text-right font-semibold text-green-600 hover:text-green-800">View Details &rarr;</div></div>
-                    </div>
-                    <!-- Module Card: Recruiting -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('recruiting-view')">
-                        <div class="p-6 bg-red-600 text-white"><h3 class="text-2xl font-bold">Recruiting</h3><p class="opacity-90">Talent Acquisition</p></div>
-                        <div class="p-6"><p class="text-sm text-gray-700 mb-4">Featuring AI-powered job description generation and updates for collective agreements and candidate management.</p><div class="text-right font-semibold text-red-600 hover:text-red-800">View Details &rarr;</div></div>
-                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('hcm-view')"><div class="p-6 bg-blue-600 text-white"><h3 class="text-2xl font-bold">HCM</h3><p class="opacity-90">Core Human Capital Management</p></div><div class="p-6"><p class="text-sm text-gray-700 mb-4">Updates include a consolidated hire process, AI-enhanced search, improved Change Job UX, and more.</p><div class="text-right font-semibold text-blue-600 hover:text-blue-800">View Details &rarr;</div></div></div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('help-view')"><div class="p-6 bg-green-600 text-white"><h3 class="text-2xl font-bold">Help</h3><p class="opacity-90">Case Management & Support</p></div><div class="p-6"><p class="text-sm text-gray-700 mb-4">Enhancements to case notifications, satisfaction surveys, and the ability for case owners to reopen cases.</p><div class="text-right font-semibold text-green-600 hover:text-green-800">View Details &rarr;</div></div></div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform cursor-pointer" onclick="showView('recruiting-view')"><div class="p-6 bg-red-600 text-white"><h3 class="text-2xl font-bold">Recruiting</h3><p class="opacity-90">Talent Acquisition</p></div><div class="p-6"><p class="text-sm text-gray-700 mb-4">Featuring AI-powered job description generation and updates for collective agreements and candidate management.</p><div class="text-right font-semibold text-red-600 hover:text-red-800">View Details &rarr;</div></div></div>
                 </div>
             </section>
         </div>
@@ -142,239 +110,392 @@
                 <button onclick="showView('main-view')" class="mb-8 bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">&larr; Back to All Modules</button>
                 <h2 class="text-3xl font-bold text-blue-800 mb-6">HCM Updates</h2>
                 <div class="space-y-4">
-                    <!-- Feature Accordion: Consolidated Hire -->
+                    <!-- Feature: Consolidated Hire -->
                     <div id="hcm-consolidated-hire" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
-                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Consolidated Hire Business Process</h3><div class="flex items-center mt-2" data-rating="5"></div></div>
-                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50"><div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Consolidated Hire Business Process</h3><div class="flex items-center mt-2" data-rating="5"></div></div><svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
                         <div class="accordion-content px-6">
-                            <p class="text-gray-600 mb-6">New User Experience for Initiators, reviewers, and approvers. The various sub-business processes are now consolidated into one section, which prevents multiple actions in different BPs and allows for easier one-time processing. A great overview video is available on Community.</p>
-                            
-                            <!-- Image Slider -->
-                            <div id="consolidated-hire-slider" class="slider relative w-full max-w-4xl mx-auto mb-6 rounded-lg overflow-hidden shadow-inner bg-gray-200">
+                            <p class="text-gray-600 mb-6">New User Experience for Initiators, reviewers, and approvers. The various sub-business processes are now consolidated into one section, which prevents multiple actions in different BPs and allows for easier one-time processing.</p>
+                            <div id="consolidated-hire-slider" class="slider relative w-full max-w-4xl mx-auto mb-6 rounded-lg overflow-hidden shadow-inner bg-gray-200 cursor-pointer">
                                 <div class="slide active"><img src="https://i.ibb.co/99S2Gxgw/Screenshot-2025-07-01-at-12-04-15.png" alt="Screenshot 1" class="w-full h-auto object-contain"></div>
                                 <div class="slide"><img src="https://i.ibb.co/mrrYXgF9/Screenshot-2025-07-01-at-12-04-45.png" alt="Screenshot 2" class="w-full h-auto object-contain"></div>
                                 <div class="slide"><img src="https://i.ibb.co/LdbFFQBp/Screenshot-2025-07-01-at-12-04-53.png" alt="Screenshot 3" class="w-full h-auto object-contain"></div>
-                                <div class="slide"><img src="https://i.ibb.co/RGYjtwz1/Screenshot-2025-07-01-at-12-04-59.png" alt="Screenshot 4" class="w-full h-auto object-contain"></div>
-                                <div class="slide"><img src="https://i.ibb.co/1tddsctc/Screenshot-2025-07-01-at-12-05-04.png" alt="Screenshot 5" class="w-full h-auto object-contain"></div>
-                                <div class="slide"><img src="https://i.ibb.co/7t8T83Yq/Screenshot-2025-07-01-at-12-05-13.png" alt="Screenshot 6" class="w-full h-auto object-contain"></div>
-                                
-                                <button class="slider-button prev-button absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 z-10">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                                </button>
-                                <button class="slider-button next-button absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 z-10">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                </button>
+                                <div class="slide"><img src="https://i.ibb.co/1tddsctc/Screenshot-2025-07-01-at-12-05-04.png" alt="Placeholder 1" class="w-full h-auto object-contain"></div>
+                                <div class="slide"><img src="https://i.ibb.co/7t8T83Yq/Screenshot-2025-07-01-at-12-05-13.png" alt="Placeholder 2" class="w-full h-auto object-contain"></div>
+                                <button class="slider-button prev-button absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 z-10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                                <button class="slider-button next-button absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 z-10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
                             </div>
-
-                            <div class="flex items-center justify-between">
+                            <div class="flex flex-wrap items-center justify-between gap-4">
                                 <div class="text-sm font-medium text-green-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div>
-                                <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleWishlistItem(event, 'hcm-consolidated-hire', 'Consolidated Hire Process', 'HCM', 0)" class="wishlist-btn-detail bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>Add to Wishlist</button>
+                                    <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">Community Link</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Feature Accordion: AI Search -->
+                    <!-- Feature: AI Search -->
                     <div id="hcm-ai-search" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
-                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">AI Enhances Search</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
-                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">A great new feature if you have the Workday Assistant SKU. This is an add-on for configuring AI to assist with searches. Most importantly, users can now search for Learning content without having to go to the Learning Module Search functionality.</p><div class="mt-4"><div class="text-sm font-medium text-green-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50"><div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">AI Enhances Search</h3><div class="flex items-center mt-2" data-rating="4"></div></div><svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="accordion-content px-6">
+                            <p class="text-gray-600 mb-6">A great new feature if you have the Workday Assistant SKU. This is an add-on for configuring AI to assist with searches. Most importantly, users can now search for Learning content without having to go to the Learning Module Search functionality.</p>
+                            <div class="flex flex-wrap items-center justify-between gap-4">
+                                <div class="text-sm font-medium text-green-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleWishlistItem(event, 'hcm-ai-search', 'AI-Enhanced Search', 'HCM', 0)" class="wishlist-btn-detail bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>Add to Wishlist</button>
+                                    <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">Community Link</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Feature Accordion: Article AI -->
-                    <div id="hcm-article-ai" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
-                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Article Summarization & Translation with AI</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
-                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">This feature is specific to Workday Help. The main difference between any AI and Workday AI is confidentiality; information you upload won't be shared publicly. It requires an 'opt-in' and can significantly impact the creation and maintenance of training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort (Each)</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Community Link</a></div></div>
+                     <!-- NEW HCM ITEM -->
+                    <div id="hcm-dynamic-teams" class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50"><div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Dynamic Teams Framework</h3><div class="flex items-center mt-2" data-rating="3"></div></div><svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="accordion-content px-6">
+                            <p class="text-gray-600 mb-6">Create and manage project-based teams outside of the standard supervisory organization hierarchy. Ideal for agile work environments and cross-functional initiatives.</p>
+                            <div class="flex flex-wrap items-center justify-between gap-4">
+                                <div class="text-sm font-medium text-yellow-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~8 Hours Setup Effort</div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleWishlistItem(event, 'hcm-dynamic-teams', 'Dynamic Teams Framework', 'HCM', 8)" class="wishlist-btn-detail bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>Add to Wishlist</button>
+                                    <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">Community Link</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <!-- Help Detail View -->
             <div id="help-view" class="view hidden-view">
                 <button onclick="showView('main-view')" class="mb-8 bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">&larr; Back to All Modules</button>
                 <h2 class="text-3xl font-bold text-green-800 mb-6">Help Updates</h2>
                 <div class="space-y-4">
-                    <!-- Feature Accordion: Case Notifications -->
-                    <div id="help-case-notifications" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
-                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Notification Configuration</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
-                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">Workday is expanding notification settings for Help. You can distinguish notifications between case owners, solvers, and collaborators. This can be a very welcome feature if you actively use Workday Help, and notifications can be configured per service team.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
-                    </div>
-                    <!-- Feature Accordion: Reopen Cases -->
-                    <div id="help-reopen-cases" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
-                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Owners Can Reopen Cases</h3><div class="flex items-center mt-2" data-rating="3"></div></div>
-                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">This only works for Case Owners with access to the Workday Help Center; external Case Owners cannot reopen cases. The feature is very straightforward for managers/case owners but may impact training materials and existing integrations.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~4 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
-                    </div>
-                    <!-- Feature Accordion: Satisfaction Surveys -->
+                    <!-- Feature: Case Satisfaction Surveys -->
                     <div id="help-satisfaction-surveys" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
-                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Satisfaction Surveys</h3><div class="flex items-center mt-2" data-rating="5"></div></div>
-                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">A new business process needs to be created, but the survey itself is straightforward. It can be completed directly from the case via a 'give feedback' button. This is very interesting if you want to collect feedback from case owners and could impact training materials.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>10-20 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">Community Link</a></div></div>
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50"><div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Case Satisfaction Surveys</h3><div class="flex items-center mt-2" data-rating="5"></div></div><svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="accordion-content px-6">
+                            <p class="text-gray-600 mb-6">A new business process needs to be created, but the survey itself is straightforward. It can be completed directly from the case via a 'give feedback' button. This is very interesting if you want to collect feedback from case owners and could impact training materials.</p>
+                            <div class="flex flex-wrap items-center justify-between gap-4">
+                                <div class="text-sm font-medium text-yellow-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>15 Hours Setup Effort</div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleWishlistItem(event, 'help-satisfaction-surveys', 'Case Satisfaction Surveys', 'Help', 15)" class="wishlist-btn-detail bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>Add to Wishlist</button>
+                                    <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">Community Link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- NEW HELP ITEM -->
+                    <div id="help-case-routing" class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50"><div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Automated Case Routing Rules</h3><div class="flex items-center mt-2" data-rating="4"></div></div><svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="accordion-content px-6">
+                            <p class="text-gray-600 mb-6">Define complex rules to automatically assign incoming Help cases to the correct support team based on case category, location, or other worker data. Reduces manual triage time.</p>
+                            <div class="flex flex-wrap items-center justify-between gap-4">
+                                <div class="text-sm font-medium text-yellow-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>20 Hours Setup Effort</div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleWishlistItem(event, 'help-case-routing', 'Automated Case Routing Rules', 'Help', 20)" class="wishlist-btn-detail bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>Add to Wishlist</button>
+                                    <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">Community Link</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <!-- Recruiting Detail View -->
             <div id="recruiting-view" class="view hidden-view">
                 <button onclick="showView('main-view')" class="mb-8 bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition">&larr; Back to All Modules</button>
                 <h2 class="text-3xl font-bold text-red-800 mb-6">Recruiting Updates</h2>
                 <div class="space-y-4">
-                    <!-- Feature Accordion: Job Description Gen -->
+                    <!-- Feature: Job Description Gen -->
                     <div id="recruiting-job-description" class="bg-white rounded-lg shadow-md border-l-4 border-red-500 overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50">
-                            <div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Job Description Generation on Job Requisitions</h3><div class="flex items-center mt-2" data-rating="4"></div></div>
-                            <svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="accordion-content px-6"><p class="text-gray-600">It would be interesting to understand more about what is needed for the AI to come up with a job description, as there is not much information on Community yet. This feature uses generative AI to speed up the process.</p><div class="mt-4"><div class="text-sm font-medium text-yellow-700 flex items-center mb-4"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~10 Hours Setup Effort</div><a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Community Link</a></div></div>
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50"><div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Job Description Generation on Job Requisitions</h3><div class="flex items-center mt-2" data-rating="4"></div></div><svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="accordion-content px-6">
+                            <p class="text-gray-600 mb-6">It would be interesting to understand more about what is needed for the AI to come up with a job description, as there is not much information on Community yet. This feature uses generative AI to speed up the process.</p>
+                             <div class="flex flex-wrap items-center justify-between gap-4">
+                                <div class="text-sm font-medium text-yellow-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>~10 Hours Setup Effort</div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleWishlistItem(event, 'recruiting-job-description', 'AI Job Description Generation', 'Recruiting', 10)" class="wishlist-btn-detail bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>Add to Wishlist</button>
+                                    <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">Community Link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- NEW RECRUITING ITEM -->
+                    <div id="recruiting-candidate-merge" class="bg-white rounded-lg shadow-md border-l-4 border-red-500 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-4 md:p-6 text-left flex justify-between items-center hover:bg-gray-50"><div class="flex-grow"><h3 class="text-lg md:text-xl font-bold text-gray-800">Enhanced Candidate Duplicate Management</h3><div class="flex items-center mt-2" data-rating="4"></div></div><svg class="accordion-icon w-6 h-6 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="accordion-content px-6">
+                            <p class="text-gray-600 mb-6">A new central dashboard for identifying and merging duplicate candidate profiles. The system uses improved logic to suggest potential duplicates, which can be reviewed and merged in a guided workflow.</p>
+                             <div class="flex flex-wrap items-center justify-between gap-4">
+                                <div class="text-sm font-medium text-green-700 flex items-center"><svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatically Available</div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="toggleWishlistItem(event, 'recruiting-candidate-merge', 'Enhanced Candidate Duplicate Management', 'Recruiting', 0)" class="wishlist-btn-detail bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>Add to Wishlist</button>
+                                    <a href="https://signin.resourcecenter.workday.com/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">Community Link</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // --- JavaScript for Navigation and Interactivity ---
+    <!-- Wishlist Floating Button -->
+    <button id="wishlist-button" onclick="toggleWishlistPopup()" class="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-50">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+        <span id="wishlist-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+    </button>
 
-        // Function to switch between the main view and detail views
+    <!-- Wishlist Popup -->
+    <div id="wishlist-popup-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleWishlistPopup()"></div>
+    <div id="wishlist-popup" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 md:w-2/3 lg:w-1/2 max-w-2xl bg-white rounded-2xl shadow-2xl z-50 transform scale-95 opacity-0 hidden flex flex-col">
+        <!-- View: Current Wishlist -->
+        <div id="wishlist-view-list" class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-5 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800">My Wishlist</h2>
+                <button onclick="toggleWishlistPopup()" class="text-gray-400 hover:text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <div id="wishlist-items" class="p-6 max-h-[50vh] overflow-y-auto flex-grow">
+                <!-- Wishlist items will be injected here -->
+            </div>
+            <div class="p-5 bg-gray-50 border-t border-gray-200 rounded-b-2xl">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-bold text-gray-800">Total Estimated Hours:</span>
+                    <span id="wishlist-total-hours" class="text-lg font-bold text-blue-600">0 hrs</span>
+                </div>
+                <div class="flex justify-between items-center gap-3">
+                    <button onclick="showSubmittedView()" class="bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition">View Submitted</button>
+                    <button id="submit-wishlist-btn" onclick="submitWishlist()" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400 flex-grow">Submit to AMS Lead</button>
+                </div>
+            </div>
+        </div>
+        <!-- View: Submitted Items -->
+        <div id="wishlist-view-submitted" class="hidden flex-col h-full">
+             <div class="flex justify-between items-center p-5 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800">Submitted Items</h2>
+                <button onclick="toggleWishlistPopup()" class="text-gray-400 hover:text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <div id="submitted-items-list" class="p-6 max-h-[60vh] overflow-y-auto flex-grow">
+                <!-- Submitted items will be injected here -->
+            </div>
+            <div class="p-5 bg-gray-50 border-t border-gray-200 rounded-b-2xl flex justify-end">
+                 <button onclick="showMainWishlistView()" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition">&larr; Back to Current Wishlist</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="toast fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-800 text-white py-3 px-6 rounded-full shadow-lg z-50">
+        <p id="toast-message"></p>
+    </div>
+
+
+    <script>
+        // --- State Management ---
+        let wishlist = [];
+        let submittedItems = [];
+
+        // --- DOM Elements ---
+        const wishlistCount = document.getElementById('wishlist-count');
+        const wishlistPopup = document.getElementById('wishlist-popup');
+        const wishlistPopupOverlay = document.getElementById('wishlist-popup-overlay');
+        const wishlistItemsContainer = document.getElementById('wishlist-items');
+        const submitWishlistBtn = document.getElementById('submit-wishlist-btn');
+        const toastNotification = document.getElementById('toast-notification');
+        const toastMessage = document.getElementById('toast-message');
+        const wishlistTotalHours = document.getElementById('wishlist-total-hours');
+        const wishlistViewList = document.getElementById('wishlist-view-list');
+        const wishlistViewSubmitted = document.getElementById('wishlist-view-submitted');
+        const submittedItemsContainer = document.getElementById('submitted-items-list');
+
+        // --- Core Functions (Navigation, Accordion, etc.) ---
         function showView(viewId) {
+            // If returning to main view, collapse all accordions
             if (viewId === 'main-view') {
-                const openAccordions = document.querySelectorAll('.accordion-content.open');
-                openAccordions.forEach(content => {
+                document.querySelectorAll('.accordion-content.open').forEach(content => {
                     const button = content.previousElementSibling;
                     const icon = button.querySelector('.accordion-icon');
                     content.classList.remove('open');
                     icon.classList.remove('rotate-180');
                 });
             }
-            const views = document.querySelectorAll('.view');
-            views.forEach(view => {
-                view.classList.remove('visible-view');
-                view.classList.add('hidden-view');
+            
+            document.querySelectorAll('.view').forEach(v => {
+                v.classList.remove('visible-view');
+                v.classList.add('hidden-view');
             });
-            const targetView = document.getElementById(viewId);
-            if (targetView) {
-                targetView.classList.remove('hidden-view');
-                targetView.classList.add('visible-view');
-            }
+            document.getElementById(viewId).classList.add('visible-view');
+            document.getElementById(viewId).classList.remove('hidden-view');
             window.scrollTo(0, 0);
         }
-
-        // Function to show a specific item and expand it
         function showItem(viewId, itemId) {
             showView(viewId);
             setTimeout(() => {
                 const item = document.getElementById(itemId);
                 if (item) {
-                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     const button = item.querySelector('button');
                     if (!button.nextElementSibling.classList.contains('open')) {
                         toggleAccordion(button);
                     }
-                    item.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500', 'transition-shadow', 'duration-300');
-                    setTimeout(() => {
-                        item.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-500');
-                    }, 2500);
+                    item.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500');
+                    setTimeout(() => item.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-500'), 2500);
                 }
-            }, 300);
+            }, 100);
         }
-
-        // Function to toggle accordion items
         function toggleAccordion(buttonEl) {
             const wasOpen = buttonEl.nextElementSibling.classList.contains('open');
-
-            // Close all accordions in the same container
             const parentContainer = buttonEl.closest('.space-y-4');
-            const allButtons = parentContainer.querySelectorAll(':scope > div > button');
-            allButtons.forEach(btn => {
+            parentContainer.querySelectorAll(':scope > div > button').forEach(btn => {
                 btn.nextElementSibling.classList.remove('open');
                 btn.querySelector('.accordion-icon').classList.remove('rotate-180');
             });
-            
-            // If the clicked one wasn't open, open it
             if (!wasOpen) {
                 buttonEl.nextElementSibling.classList.add('open');
                 buttonEl.querySelector('.accordion-icon').classList.add('rotate-180');
             }
         }
-
-        // Function to generate star ratings
         function generateStars() {
-            const starContainers = document.querySelectorAll('[data-rating]');
-            const starSVG = `<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
-            const emptyStarSVG = `<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
-            
-            starContainers.forEach(container => {
+            document.querySelectorAll('[data-rating]').forEach(container => {
                 const rating = parseInt(container.dataset.rating, 10);
                 let starsHTML = '';
-                for (let i = 1; i <= 5; i++) {
-                    starsHTML += i <= rating ? starSVG : emptyStarSVG;
-                }
+                const starSVG = `<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
+                const emptyStarSVG = `<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
+                for (let i = 1; i <= 5; i++) { starsHTML += i <= rating ? starSVG : emptyStarSVG; }
                 container.innerHTML = starsHTML;
             });
         }
-        
-        // --- Slider Logic ---
         function initSlider(sliderId) {
             const slider = document.getElementById(sliderId);
             if (!slider) return;
-
             const slides = slider.querySelectorAll('.slide');
             const prevButton = slider.querySelector('.prev-button');
             const nextButton = slider.querySelector('.next-button');
-            let currentSlide = 0;
-
-            function updateArrowVisibility() {
-                // Hide previous button if on the first slide
-                prevButton.style.display = currentSlide === 0 ? 'none' : 'block';
-                // Hide next button if on the last slide
-                nextButton.style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
-            }
-
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.classList.remove('active');
-                    if (i === index) {
-                        slide.classList.add('active');
-                    }
-                });
-                updateArrowVisibility();
-            }
-
-            prevButton.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent accordion from toggling
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    showSlide(currentSlide);
-                }
-            });
-
-            nextButton.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent accordion from toggling
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    showSlide(currentSlide);
-                }
-            });
-
+            let currentSlide = 0, touchStartX = 0;
+            const showSlide = (index) => {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                prevButton.style.display = index === 0 ? 'none' : 'block';
+                nextButton.style.display = index === slides.length - 1 ? 'none' : 'block';
+            };
+            const next = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+            const prev = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            prevButton.addEventListener('click', e => { e.stopPropagation(); prev(); });
+            nextButton.addEventListener('click', e => { e.stopPropagation(); next(); });
+            slider.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+            slider.addEventListener('touchend', e => {
+                if (touchStartX - e.changedTouches[0].screenX > 50) next();
+                if (e.changedTouches[0].screenX - touchStartX > 50) prev();
+            }, { passive: true });
             showSlide(currentSlide);
         }
 
+        // --- Wishlist Functions ---
+        function toggleWishlistItem(event, id, title, module, hours) {
+            event.stopPropagation();
+            const existingItemIndex = wishlist.findIndex(item => item.id === id);
+            if (existingItemIndex > -1) {
+                wishlist.splice(existingItemIndex, 1);
+                showToast('Removed from wishlist.');
+            } else {
+                wishlist.push({ id, title, module, hours });
+                showToast('Added to wishlist!');
+            }
+            updateWishlistUI();
+        }
 
-        // Initialize everything on page load
+        function updateWishlistUI() {
+            renderWishlistItems();
+            renderSubmittedItems();
+            wishlistCount.textContent = wishlist.length;
+            wishlistCount.classList.toggle('hidden', wishlist.length === 0);
+            submitWishlistBtn.disabled = wishlist.length === 0;
+            const totalHours = wishlist.reduce((acc, item) => acc + item.hours, 0);
+            wishlistTotalHours.textContent = `${totalHours} hrs`;
+
+            document.querySelectorAll('.wishlist-btn-icon, .wishlist-btn-detail').forEach(button => {
+                const id = button.getAttribute('onclick').split("'")[1];
+                const isInWishlist = wishlist.some(item => item.id === id);
+                const svg = button.querySelector('svg');
+                button.classList.toggle('text-pink-500', isInWishlist);
+                button.classList.toggle('bg-pink-100', isInWishlist);
+                svg.style.fill = isInWishlist ? 'currentColor' : 'none';
+                if (button.classList.contains('wishlist-btn-detail')) {
+                    const textNode = button.lastChild;
+                    textNode.textContent = isInWishlist ? ' Remove from Wishlist' : ' Add to Wishlist';
+                }
+            });
+        }
+
+        function renderWishlistItems() {
+            wishlistItemsContainer.innerHTML = wishlist.length === 0
+                ? `<p class="text-gray-500 text-center py-8">Your wishlist is empty.</p>`
+                : wishlist.map(item => `
+                    <div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50">
+                        <div>
+                            <p class="font-bold text-gray-800">${item.title}</p>
+                            <span class="text-sm text-gray-500">${item.module}</span>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-700">${item.hours > 0 ? item.hours + ' hrs' : 'N/A'}</p>
+                            <button onclick="toggleWishlistItem(event, '${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.module}', ${item.hours})" class="text-xs text-red-500 hover:underline">Remove</button>
+                        </div>
+                    </div>`).join('');
+        }
+        
+        function renderSubmittedItems() {
+            submittedItemsContainer.innerHTML = submittedItems.length === 0
+                ? `<p class="text-gray-500 text-center py-8">You have not submitted any items yet.</p>`
+                : submittedItems.map(item => `
+                    <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50 mb-2">
+                        <div>
+                            <p class="font-bold text-gray-800">${item.title}</p>
+                            <span class="text-sm text-gray-500">${item.module}</span>
+                        </div>
+                        <p class="font-semibold text-gray-700">${item.hours > 0 ? item.hours + ' hrs' : 'N/A'}</p>
+                    </div>`).join('');
+        }
+
+        function submitWishlist() {
+            if (wishlist.length === 0) return;
+            submittedItems.push(...wishlist);
+            wishlist = [];
+            updateWishlistUI();
+            toggleWishlistPopup();
+            showToast('Wishlist submitted successfully!');
+        }
+
+        function toggleWishlistPopup() {
+            const isHidden = wishlistPopup.classList.contains('hidden');
+            if (isHidden) {
+                showMainWishlistView();
+                wishlistPopup.classList.remove('hidden');
+                wishlistPopupOverlay.classList.remove('hidden');
+                setTimeout(() => wishlistPopup.classList.remove('scale-95', 'opacity-0'), 10);
+            } else {
+                wishlistPopup.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    wishlistPopup.classList.add('hidden');
+                    wishlistPopupOverlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+        
+        function showMainWishlistView() {
+            wishlistViewList.style.display = 'flex';
+            wishlistViewSubmitted.style.display = 'none';
+        }
+
+        function showSubmittedView() {
+            wishlistViewList.style.display = 'none';
+            wishlistViewSubmitted.style.display = 'flex';
+        }
+
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toastNotification.classList.add('show');
+            setTimeout(() => toastNotification.classList.remove('show'), 3000);
+        }
+
+        // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
             generateStars();
             initSlider('consolidated-hire-slider');
+            updateWishlistUI();
         });
     </script>
 
