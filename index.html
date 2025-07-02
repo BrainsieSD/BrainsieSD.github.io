@@ -304,9 +304,25 @@
         const wishlistViewSubmitted = document.getElementById('wishlist-view-submitted');
         const submittedItemsContainer = document.getElementById('submitted-items-list');
 
+        // --- Data Persistence Functions ---
+        function saveData() {
+            localStorage.setItem('workdayWishlist', JSON.stringify(wishlist));
+            localStorage.setItem('workdaySubmittedItems', JSON.stringify(submittedItems));
+        }
+
+        function loadData() {
+            const savedWishlist = localStorage.getItem('workdayWishlist');
+            const savedSubmittedItems = localStorage.getItem('workdaySubmittedItems');
+            if (savedWishlist) {
+                wishlist = JSON.parse(savedWishlist);
+            }
+            if (savedSubmittedItems) {
+                submittedItems = JSON.parse(savedSubmittedItems);
+            }
+        }
+
         // --- Core Functions (Navigation, Accordion, etc.) ---
         function showView(viewId) {
-            // If returning to main view, collapse all accordions
             if (viewId === 'main-view') {
                 document.querySelectorAll('.accordion-content.open').forEach(content => {
                     const button = content.previousElementSibling;
@@ -419,6 +435,7 @@
                     textNode.textContent = isInWishlist ? ' Remove from Wishlist' : ' Add to Wishlist';
                 }
             });
+            saveData(); // Save state every time UI is updated
         }
 
         function renderWishlistItems() {
@@ -493,6 +510,7 @@
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
+            loadData();
             generateStars();
             initSlider('consolidated-hire-slider');
             updateWishlistUI();
